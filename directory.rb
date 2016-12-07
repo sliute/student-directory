@@ -11,8 +11,11 @@ def print_students_list
   if @students.empty?
     puts "Oi! Heroes have prevailed, so there are no Smokey Villains left!"
   else
-    @students.each do |student|
-        puts "#{student[:name]} (#{student[:cohort]})"
+    @students.map { |student| student[:cohort] }.uniq.each do |cohort|
+      puts "#{cohort} cohort:"
+      @students.select { |student| student[:cohort] == cohort }.each do |student|
+        puts "#{student[:name]}"
+      end
     end
   end
 end

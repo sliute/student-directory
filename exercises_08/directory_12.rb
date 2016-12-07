@@ -7,9 +7,10 @@ def print(students)
   if students.empty?
     puts "Oi! Heroes have prevailed, so there are no Smokey Villains left!"
   else
-    students.map { |student| student[:cohort] }.uniq!.each do |cohort|
+    students.map { |student| student[:cohort] }.uniq.each do |cohort|
+      puts "#{cohort} cohort:"
       students.select { |student| student[:cohort] == cohort }.each do |student|
-        puts "#{cohort}: #{student[:name]}, " + "hobbies: #{student[:hobbies]}, ".center(20) + "country of birth: #{student[:countryofbirth]}, ".center(25) + "height: #{student[:height]}.".center(15)
+        puts "#{student[:name]} - " + "hobbies: #{student[:hobbies]}, ".center(20) + "country of birth: #{student[:countryofbirth]}, ".center(25) + "height: #{student[:height]}.".center(15)
       end
     end
   end
@@ -21,7 +22,7 @@ end
 
 def input_students
   puts "Please enter the student's name (hit return), then their respective cohort (hit return)."
-  puts "To finish, just hit return twice in a row."
+  puts "To finish, just hit return twice."
   students = []
   calendar = ['january', 'february', 'march', 'april', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
   # get the first name and use strip instead of chomp

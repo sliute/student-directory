@@ -4,9 +4,10 @@ def print_header
 end
 
 def print(students)
-  students.map { |student| student[:cohort] }.uniq!.each do |cohort|
+  students.map { |student| student[:cohort] }.uniq.each do |cohort|
+    puts "#{cohort} cohort:"
     students.select { |student| student[:cohort] == cohort }.each do |student|
-      puts "#{cohort}: #{student[:name]}, " + "hobbies: #{student[:hobbies]}, ".center(20) + "country of birth: #{student[:countryofbirth]}, ".center(25) + "height: #{student[:height]}.".center(15)
+      puts "#{student[:name]} - " + "hobbies: #{student[:hobbies]}, ".center(20) + "country of birth: #{student[:countryofbirth]}, ".center(25) + "height: #{student[:height]}.".center(15)
     end
   end
 end
