@@ -2,6 +2,7 @@
 @calendar = ['january', 'february', 'march', 'april', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
 
 def print_header
+  puts
   puts "The students of Smokey Villains Academy"
   puts "-------------"
 end
@@ -18,21 +19,22 @@ end
 
 def print_footer
   puts "Overall, we have #{@students.count} great #{ @students.count == 1 ? "student" : "students"}."
+  puts
 end
 
 def input_students
   puts "Please enter the student's name (hit return), then their respective cohort (hit return)."
   puts "To finish, just hit return twice."
-  name = gets.chomp
+  name = STDIN.gets.chomp
   name = "Default Name" if name == ''
-  cohort = gets.chomp
+  cohort = STDIN.gets.chomp
   cohort = "November" if cohort == '' || !@calendar.include?(cohort.downcase)
     while (name != 'Default Name' || cohort != 'November') do
     @students << {name: name, cohort: cohort.to_sym}
     puts "Now we have #{@students.count} #{ @students.count == 1 ? "student" : "students"}."
-    name = gets.chomp
+    name = STDIN.gets.chomp
     name = "Default Name" if name == ''
-    cohort = gets.chomp
+    cohort = STDIN.gets.chomp
     cohort = "November" if cohort == '' || !@calendar.include?(cohort.downcase)
   end
 end
@@ -43,6 +45,7 @@ def print_menu
   puts "3. Save the list to students.csv"
   puts "4. Load the list from students.csv"
   puts "9. Exit" # 9 because we'll be adding more items
+  puts
 end
 
 def show_students
@@ -64,14 +67,16 @@ def process(selection)
     when "9"
       exit
     else
+      puts
       puts "I don't know what you mean, please try again."
+      puts
   end
 end
 
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -87,8 +92,8 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
@@ -96,6 +101,17 @@ def load_students
   file.close
 end
 
-# command line for .gitignore: echo "students.csv" >> .gitignore
+def try_load_students
+  filename = ARGV.first # first argument from the command line
+  return if filename.nil? # get out of the method if it isn't given
+  if File.exists?(filename) # if it exists
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} does not exist."
+    exit # quit the program
+  end
+end
 
+try_load_students
 interactive_menu
