@@ -3,8 +3,12 @@
 The student directory script allows you to manage the list of students enrolled
 at Smokey Villains Academy.
 
-## How to use ##
+A [Makers Academy pre-course assignment](https://github.com/makersacademy/student-directory).
 
-```shell
-ruby directory.rb
+## How to use
+
+```
+$ git clone https://github.com/sliute/student-directory.git
+$ cd student-directory
+$ ruby directory.rb
 ```
